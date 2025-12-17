@@ -2,10 +2,14 @@ import express, { type Request, type Response } from 'express';
 
 const app = express();
 
+/** JSON for normal APIs */
+app.use(express.json());
+
 /**
  * IMPORTANT:
  * We must use raw body, NOT express.json()
  */
+/** Binary-only endpoint */
 app.post(
   '/base64',
   express.raw({ type: 'application/octet-stream' }),
@@ -19,6 +23,17 @@ app.post(
     res.json({
       length: buffer.length,
       base64,
+    });
+  },
+);
+
+/** JSON endpoint */
+app.post(
+  '/json',
+  (req: Request, res: Response): void => {
+    res.json({
+      received: req.body,
+      type: typeof req.body,
     });
   },
 );
