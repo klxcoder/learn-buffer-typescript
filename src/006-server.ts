@@ -31,6 +31,10 @@ app.use(express.json());
 app.post(
   '/json',
   (req: Request, res: Response): void => {
+    console.log({
+      received: req.body,
+      type: typeof req.body,
+    });
     res.json({
       received: req.body,
       type: typeof req.body,
