@@ -8,7 +8,7 @@ const app = express();
  */
 app.post(
   '/base64',
-  express.raw({ type: '*/*' }),
+  express.raw({ type: 'application/octet-stream' }),
   (req: Request, res: Response): void => {
     const buffer: Buffer = req.body as Buffer;
     const base64: string = buffer.toString('base64');
