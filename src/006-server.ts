@@ -2,6 +2,19 @@ import express, { type Request, type Response } from 'express';
 
 const app = express();
 
+const handlerRaw = (req: Request, res: Response): void => {
+  const buffer: Buffer = req.body as Buffer;
+  const base64: string = buffer.toString('base64');
+  console.log({
+    buffer,
+    base64,
+  });
+  res.json({
+    length: buffer.length,
+    base64,
+  });
+}
+
 /**
  * IMPORTANT:
  * We must use raw body, NOT express.json()
@@ -10,18 +23,7 @@ const app = express();
 app.post(
   '/base64',
   express.raw({ type: 'application/octet-stream' }),
-  (req: Request, res: Response): void => {
-    const buffer: Buffer = req.body as Buffer;
-    const base64: string = buffer.toString('base64');
-    console.log({
-      buffer,
-      base64,
-    });
-    res.json({
-      length: buffer.length,
-      base64,
-    });
-  },
+  handlerRaw,
 );
 
 /** JSON for normal APIs */
