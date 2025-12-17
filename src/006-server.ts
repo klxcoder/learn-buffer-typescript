@@ -2,9 +2,6 @@ import express, { type Request, type Response } from 'express';
 
 const app = express();
 
-/** JSON for normal APIs */
-app.use(express.json());
-
 /**
  * IMPORTANT:
  * We must use raw body, NOT express.json()
@@ -26,6 +23,9 @@ app.post(
     });
   },
 );
+
+/** JSON for normal APIs */
+app.use(express.json());
 
 /** JSON endpoint */
 app.post(
